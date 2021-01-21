@@ -1,0 +1,554 @@
+<html>
+<head>
+	<title> Snakes and Ladder </title>
+	<script>
+
+
+
+
+	var result = [];			   // result will store the scores of player
+	var current, temp_current = 0; // temp_current will store total number of the players and 
+								   // current is used for iteration purpose
+	var player_name = [] 		   // stores all the names of player
+	var player_nm
+
+
+		function initialize_values() { // initialize values will generate players will default score of 0
+			
+			current = prompt("Input player size (min 2 & max 4)")
+	
+			while( current >= 4 && current <= 2 ) {
+				current = prompt("Input player size (min 2 & max 4)")		
+			}
+		
+			temp_current = current
+
+			for(let t = 0 ; t < current; t++) {
+				result.push(1);
+				player_name[t] = "player "+(t+1)
+			}
+		
+			if(current < 2 || current > 4) {
+				document.getElementById('rollButton').disabled = true
+				location.reload();
+			}
+
+			// var img_pos = document.createElement("img");
+			// img_pos.src = "pawn_images/player2/black_brown_pawn.png";
+			// // img_pos.height = "35"
+			// document.getElementById(1).appendChild(img_pos);
+			current = 0;
+
+
+
+		}
+
+				// for(let i = 0 ; i < temp_current; i ++) {
+				// 	var td_el = document.getElementById('p'+(i+1)+'_name')
+				// 	var player_n = document.createElement('span');
+				// 	player_n.setAttribute('class', 'picon-p-add-news');
+				// 	player_n.innerHTML = player_name[i]
+				// 	td_el.appendChild(player_n)
+
+				// 	var td_el2 = document.getElementById('p'+(i+2)+'_score')
+				// 	var player_score = document.createElement('span')
+				// 	player_score.setAttribute('class', 'picon-p-add-news')
+				// 	player_score.innerHTML = result[i];
+				// 	td_el2.appendChild(player_score)
+				// 	console.log(i)
+
+				// }
+
+		function rollDice(){
+
+
+			document.getElementById(1).style.visibility = 'hidden';
+
+
+
+			if(result[current] != 0) { // this condition will hide all cell of the table 
+				
+				document.getElementById(result[current]).style.visibility = 'hidden';
+			
+			}
+
+			document.getElementById('rollButton').disabled = true;
+			
+			var result_src = document.getElementById('result')
+			var img = document.createElement('img')
+			img.height = "45"
+
+	
+				let temp_result = Math.floor(Math.random() * 6)+1;
+				document.getElementById('result').innerHTML = "Result : ";
+
+
+				// this condition will change the url of dice's image
+
+				if(temp_result == 1) {
+					img.src = 'dice_images/dice_1.png'
+				}
+
+				if(temp_result == 2) {
+					img.src = 'dice_images/dice_2.png'
+				}
+
+				if(temp_result == 3) {
+					img.src = 'dice_images/dice_3.png'
+				}
+
+				if(temp_result == 4) {
+					img.src = 'dice_images/dice_4.png'
+				}
+
+				if(temp_result == 5) {
+					img.src = 'dice_images/dice_5.png'
+				}
+
+				if(temp_result == 6) {
+					img.src = 'dice_images/dice_6.png'
+				}
+
+
+				
+
+				// this will add dice's result to total score
+
+				result[current] += temp_result;
+
+					// condition for snakes
+
+				// if ( result[current] === 28 ) {
+				// 	result[current] = 10
+				// } 
+
+				// if ( result[current] === 37 ) {
+				// 	result[current] = 3
+				// }
+
+				// if ( result[current] === 47 ) {
+				// 	result[current] = 16
+				// }
+
+				// if ( result[current] === 75) {
+				// 	result[current] = 32
+				// }
+
+				// if ( result[current] === 94) {
+				// 	result[current] = 71
+				// }
+
+				// if ( result[current] === 96 ) {
+				// 	result[current] = 42
+				// }
+
+				// condition for ladders
+
+				if( result[current] === 4 ) {
+					result[current] = 56
+				}
+
+				if ( result[current] === 12 ) {
+					result[current] = 50 
+				}
+
+				if ( result[current] === 14 ) {
+					result[current] = 55
+				}
+
+				if ( result[current] === 22 ) {
+					result[current] = 58
+				}
+
+				if( result[current] === 41 ) {
+					result[current] = 79
+				}
+
+				if ( result[current] === 54 ) {
+					result[current] = 88
+				}
+
+
+				// this will print data on score-board
+
+				document.getElementById('p1_name').innerHTML = player_name[0]
+				document.getElementById('p1_score').innerHTML = result[0]
+
+				document.getElementById('p2_name').innerHTML = player_name[1]
+				document.getElementById('p2_score').innerHTML = result[1]
+
+				if(player_name[2] == "player 3" ) {
+					
+					document.getElementById('p3_name').innerHTML = player_name[2]
+					document.getElementById('p3_score').innerHTML = result[2]
+				
+				} else {
+
+					document.getElementById('p3_name').style.visibility = "hidden"
+					document.getElementById('p3_score').style.visibility = "hidden"	
+
+				}
+				
+				if(player_name[3] == "player 4") {
+				
+					document.getElementById('p4_name').innerHTML = player_name[3]				
+					document.getElementById('p4_score').innerHTML = result[3]
+				
+				} else {
+
+					document.getElementById('p4_name').style.visibility = "hidden"
+					document.getElementById('p4_score').style.visibility = "hidden"	
+
+				}
+
+				// this span will append player's name in 
+
+				player_nm = document.createElement('span');
+				player_nm.setAttribute('class', 'picon-p-add-news');
+				player_nm.innerHTML = player_name[current]+"s' dice result is ";
+
+			
+
+				if ( result[current] > 100) {
+					result[current] = result[current] - temp_result;
+				}
+
+				document.getElementById(result[current]).style.visibility = 'visible';
+
+				if (result[current] === 100) {
+					let temporary = 0;
+		
+					for(let i = 0 ; i < temp_current; i ++) {
+							if(result[i] == 100) {
+								temporary++;
+							}
+					}
+
+					alert(player_name[current]+" You Won!")
+					// console.log(temp_current, temporary)
+		
+					if(temporary == (temp_current - 1)) {
+
+						for(let i = 0 ; i < temp_current ; i ++) {
+							if( result[i] != 100) {
+								alert(player_name[i]+'you lost!')
+							}
+						}
+						location.reload()
+
+					}
+
+				}
+				result_src.appendChild(player_nm)
+
+				if(result != 100 ) {
+					result_src.appendChild(img)
+					document.getElementById('rollButton').disabled = false;					
+				}
+
+				current++;
+
+				if(current == temp_current) {
+					current = 0
+				}
+
+		}
+	</script>
+	<style>
+
+		tr {
+			position: relative;
+		}
+		
+		td{
+			height:68px;
+			width: 64px;
+			position: relative;
+			background-image: url("gpawn.png"), url("pawn1.png");
+			background-position: center;
+			visibility: hidden;
+			background-size: 30px;
+			background-repeat: no-repeat;
+		}
+		#tbl tr,td
+		{
+			font-style: Sans-serif;
+			font-variant: small-caps;
+			/*border: 1px solid black;*/
+		}
+	</style>
+</head>
+<body onload="initialize_values()">
+
+	<!--<img src="Snake-and-Ladder-Template-1.png">-->
+	<table border="1px" background="Snake-and-Ladder-Template-1.png">
+		<tr">
+			<td id="100" >	
+				
+			</td>
+
+			<td id="99">			</td>
+
+			<td id="98">			</td>
+
+			<td id="97">			</td>
+
+			<td id="96">			</td>
+
+			<td id="95">			</td>
+
+			<td id="94">		</td>
+
+			<td id="93">			</td>
+
+			<td id="92">		</td>
+
+			<td id="91">			</td>
+
+		</tr>
+		<tr>
+			<td id="81">			</td>
+
+			<td id="82">		</td>
+
+			<td id="83">		</td>
+
+			<td id="84">	</td>
+
+			<td id="85">			</td>
+
+			<td id="86">			</td>
+
+			<td id="87">			</td>
+
+			<td id="88">			</td>
+
+			<td id="89">	</td>
+
+			<td id="90">		</td>
+
+		</tr>
+		<tr>
+			<td id="80">		</td>
+
+			<td id="79">			</td>
+
+			<td id="78">			</td>
+
+			<td id="77">		</td>
+
+			<td id="76">			</td>
+
+			<td id="75">		</td>
+
+			<td id="74">		74	</td>
+
+			<td id="73">		73	</td>
+
+			<td id="72">		72	</td>
+
+			<td id="71">		71	</td>
+
+		</tr>
+
+		<tr>
+			<td id="61">			</td>
+
+			<td id="62">			</td>
+
+			<td id="63">			</td>
+
+			<td id="64">			</td>
+
+			<td id="65">			</td>
+
+			<td id="66">		</td>
+
+			<td id="67">		</td>
+
+			<td id="68">			</td>
+
+			<td id="69">			</td>
+
+			<td id="70">			</td>
+		</tr>
+		<tr>
+			<td id="60">			</td>
+
+			<td id="59">			</td>
+
+			<td id="58">			</td>
+
+			<td id="57">			</td>
+
+			<td id="56">			</td>
+			<td id="55">			</td>
+
+			<td id="54">			</td>
+
+			<td id="53">			</td>	
+			<td id="52">			</td>
+
+			<td id="51">			</td>
+
+		</tr>
+
+		<tr>
+			<td id="41">			</td>
+
+			<td id="42">			</td>
+
+			<td id="43">			</td>
+
+			<td id="44">			</td>
+
+			<td id="45">			</td>
+			<td id="46">			</td>
+			<td id="47">			</td>
+
+			<td id="48">			</td>
+
+			<td id="49">			</td>
+
+			<td id="50">			</td>
+
+		</tr>
+		<tr>
+			<td id="40"> 			</td>
+
+			<td id="39"> 			</td>
+
+			<td id="38"> 			</td>
+
+			<td id="37"> 			</td>
+
+			<td id="36"> 			</td>
+
+			<td id="35"> 			</td>
+
+			<td id="34"> 		</td>
+
+			<td id="33"> 			</td>
+
+			<td id="32"> 			</td>
+
+			<td id="31"> 			</td>
+
+		</tr>
+
+		<tr>
+			<td id="21"> 			</td>
+
+			<td id="22"> 			</td>
+
+			<td id="23"> 			</td>
+
+			<td id="24"> 			</td>
+
+			<td id="25"> 			</td>
+
+			<td id="26"> 			</td>
+
+			<td id="27"> 			</td>
+
+			<td id="28"> 			</td>
+
+			<td id="29"> 			</td>
+
+			<td id="30"> 			</td>
+
+		</tr>
+		<tr>
+			<td id="20"> 			</td>
+			<td id="19"> 			</td>
+
+			<td id="18"> 			</td>
+
+			<td id="17"> 			</td>
+
+			<td id="16"> 			</td>
+
+			<td id="15"> 			</td>
+
+			<td id="14 ">			</td>
+
+			<td id="13"> 			</td>
+
+			<td id="12">			</td>
+
+			<td id="11">			</td>
+
+		</tr>
+		<tr>
+			<td id="1">  
+				<!-- <script type="text/javascript">
+					if(result[0] === 1) {
+						document.getElementById(1).style.visibility = 'visible';
+					} 
+				</script> -->
+			</td>
+
+			<td id="2">			</td>
+
+			<td id="3">			</td>
+
+			<td id="4">			</td>
+
+			<td id="5"> 			</td>
+
+			<td id="6">			</td>
+
+			<td id="7">			</td>
+			<td id="8">			</td>
+
+			<td id="9">			</td>
+
+			<td id="10">			</td>
+
+		</tr>
+
+	</table>
+
+
+	<br/><br/>
+		<button id="rollButton" onClick="rollDice()" style="font-size: 2em">
+			Roll Dice 
+		</button>
+
+		<br><br>
+		
+
+		
+		<div  name="result" id="result" style="font-size: 1.25em; font-family: sans-serif; flood-color: gray"><b>Result : </b> </div>
+		
+		<br>
+		<label id="player_id" style="font-size: 1.5em; font-family: serif; font-style: italic;">Score Board</label>
+		<br>
+		<br> 
+		
+		<table id="tbl">
+			<tr>
+				<td style="visibility: visible;background-image: none; text-align: center; width: 170px !important">Player Name</td>
+				<td style="visibility: visible;background-image: none; text-align: center;  width: 120px !important">Score</td>
+			</tr>
+			<tr>
+				<td id="p1_name" style="visibility: visible;background-image: none; text-align: center"></td>
+				<td id="p1_score" style="visibility: visible;background-image: none; text-align: center"></td>
+			</tr>
+			<tr>
+				<td id="p2_name" style="visibility: visible;background-image: none; text-align: center"></td>
+				<td id="p2_score" style="visibility: visible;background-image: none; text-align: center"></td>
+			</tr>
+			<tr>
+				<td id="p3_name" style="visibility: visible;background-image: none; text-align: center"></td>
+				<td id="p3_score" style="visibility: visible;background-image: none; text-align: center"></td>
+			</tr>
+			<tr>
+				<td id="p4_name" style="visibility: visible;background-image: none; text-align: center"></td>
+				<td id="p4_score" style="visibility: visible;background-image: none; text-align: center"></td>
+			</tr>
+	
+	
+		</table>
+</body>
+</html>
